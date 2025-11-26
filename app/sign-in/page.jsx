@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/utils/db";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,7 +12,6 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const { signIn } = useAuth();
   const router = useRouter();
 
   const handleSubmit = async (e) => {
@@ -20,20 +19,44 @@ export default function SignIn() {
     setLoading(true);
 
     try {
-      const { data, error } = await signIn(email, password);
+      console.log("🔐 Starting sign in...");
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      console.log("📦 Sign in response:", { data, error });
 
       if (error) {
+        console.error("❌ Sign in error:", error);
         toast.error(error.message);
         setLoading(false);
         return;
       }
 
       if (data?.session) {
+        console.log("✅ Session created:", data.session.user.email);
+
+        // Verify session was saved
+        const { data: { session: savedSession } } = await supabase.auth.getSession();
+        console.log("💾 Saved session check:", savedSession ? "✓" : "✗");
+
         toast.success("Signed in successfully!");
+
+        // Wait a bit for cookies to be set
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        // Force hard navigation
         window.location.href = "/dashboard";
+      } else {
+        console.warn("⚠️ No session in response");
+        toast.error("Sign in succeeded but no session was created");
+        setLoading(false);
       }
     } catch (err) {
-      toast.error("An error occurred. Please try again.");
+      console.error("💥 Unexpected error:", err);
+      toast.error("An unexpected error occurred. Please try again.");
       setLoading(false);
     }
   };
@@ -108,6 +131,15 @@ export default function SignIn() {
                 Sign up
               </Link>
             </p>
+          </div>
+
+          <div className="mt-6 text-center">
+            <Link
+              href="/test-auth"
+              className="text-xs text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+            >
+              Debug Auth
+            </Link>
           </div>
         </div>
       </div>
