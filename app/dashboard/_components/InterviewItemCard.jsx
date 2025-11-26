@@ -2,9 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { db } from "@/utils/db";
-import { eq } from "drizzle-orm";
-import { mockInterview } from "@/utils/schema";
+import { supabase } from "@/utils/db";
 import { Trash } from "lucide-react";
 import { toast } from "sonner";
 
@@ -22,9 +20,16 @@ const InterviewItemCard = ({ interview }) => {
 
   const onDelete = async () => {
     try {
-      await db
-        .delete(mockInterview)
-        .where(eq(mockInterview.mockId, interview?.mockId));
+      const { error } = await supabase
+        .from("mockInterview")
+        .delete()
+        .eq("mockId", interview?.mockId);
+
+      if (error) {
+        console.error("Error deleting interview:", error);
+        toast.error("Failed to delete interview");
+        return;
+      }
 
       // Close dialog and show success toast
       setIsDialogOpen(false);

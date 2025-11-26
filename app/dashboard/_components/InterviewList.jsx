@@ -1,8 +1,6 @@
 "use client";
-import { db } from "@/utils/db";
-import { mockInterview } from "@/utils/schema";
+import { supabase } from "@/utils/db";
 import { useUser } from "@clerk/nextjs";
-import { desc, eq } from "drizzle-orm";
 import React, { useEffect, useState } from "react";
 import InterviewItemCard from "./InterviewItemCard";
 
@@ -13,15 +11,17 @@ const InterviewList = () => {
     user && GetInterviewList();
   }, [user]);
   const GetInterviewList = async () => {
-    const result = await db
-      .select()
-      .from(mockInterview)
-      .where(
-        eq(mockInterview.createdBy, user?.primaryEmailAddress?.emailAddress)
-      )
-      .orderBy(desc(mockInterview.id));
+    const { data, error } = await supabase
+      .from("mockInterview")
+      .select("*")
+      .eq("createdBy", user?.primaryEmailAddress?.emailAddress)
+      .order("id", { ascending: false });
 
-    setInterviewList(result);
+    if (error) {
+      console.error("Error fetching interviews:", error);
+      return;
+    }
+    setInterviewList(data || []);
   };
   return (
     <div className="mt-12">

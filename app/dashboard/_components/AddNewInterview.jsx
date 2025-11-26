@@ -12,9 +12,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { chatSession, retryWithBackoff } from "@/utils/GeminiAIModal";
 import { LoaderCircle, Sparkles } from "lucide-react";
-import { mockInterview } from "@/utils/schema";
 import { v4 as uuidv4 } from "uuid";
-import { db } from "@/utils/db";
+import { supabase } from "@/utils/db";
 import { useUser } from "@clerk/nextjs";
 import moment from "moment";
 import { useRouter } from "next/navigation";
@@ -85,11 +84,12 @@ function AddNewInterview() {
         .trim();
 
       const mockResponse = JSON.parse(cleanedResponse);
+      const mockId = uuidv4();
 
-      const res = await db
-        .insert(mockInterview)
-        .values({
-          mockId: uuidv4(),
+      const { data, error } = await supabase
+        .from("mockInterview")
+        .insert({
+          mockId: mockId,
           jsonMockResp: JSON.stringify(mockResponse),
           jobPosition: jobPosition,
           jobDesc: jobDescription,
@@ -97,10 +97,16 @@ function AddNewInterview() {
           createdBy: user?.primaryEmailAddress?.emailAddress,
           createdAt: moment().format("DD-MM-YYYY"),
         })
-        .returning({ mockId: mockInterview.mockId });
+        .select();
+
+      if (error) {
+        console.error("Error saving interview:", error);
+        toast.error("Failed to save interview. Please try again.");
+        return;
+      }
 
       toast.success("Interview questions generated successfully!");
-      router.push(`dashboard/interview/${res[0]?.mockId}`);
+      router.push(`dashboard/interview/${mockId}`);
     } catch (error) {
       console.error("Error generating interview:", error);
       

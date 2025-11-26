@@ -1,7 +1,5 @@
 "use client";
-import { db } from "@/utils/db";
-import { mockInterview } from "@/utils/schema";
-import { eq } from "drizzle-orm";
+import { supabase } from "@/utils/db";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
@@ -30,19 +28,25 @@ function StartInterview() {
   const GetInterviewDetails = async () => {
     try {
       setIsLoading(true);
-      const result = await db
-        .select()
-        .from(mockInterview)
-        .where(eq(mockInterview.mockId, interviewId));
+      const { data, error } = await supabase
+        .from("mockInterview")
+        .select("*")
+        .eq("mockId", interviewId)
+        .maybeSingle();
 
-      if (result && result.length > 0) {
-        const interview = result[0];
+      if (error) {
+        console.error("Error fetching interview:", error);
+        return;
+      }
+
+      if (data) {
+        const interview = data;
         let parsedQuestions = [];
 
         try {
-          const data = JSON.parse(interview.jsonMockResp);
-          if (Array.isArray(data)) parsedQuestions = data;
-          else if (Array.isArray(data.questions)) parsedQuestions = data.questions;
+          const jsonData = JSON.parse(interview.jsonMockResp);
+          if (Array.isArray(jsonData)) parsedQuestions = jsonData;
+          else if (Array.isArray(jsonData.questions)) parsedQuestions = jsonData.questions;
         } catch (err) {
           console.error("Invalid JSON format for mock interview questions:", err);
         }

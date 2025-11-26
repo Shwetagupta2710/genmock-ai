@@ -7,8 +7,7 @@ import useSpeechToText from "react-hook-speech-to-text";
 import { Mic } from "lucide-react";
 import { toast } from "sonner";
 import { chatSession, retryWithBackoff } from "@/utils/GeminiAIModal";
-import { db } from "@/utils/db";
-import { UserAnswer } from "@/utils/schema";
+import { supabase } from "@/utils/db";
 import moment from "moment";
 import { useUser } from "@clerk/nextjs";
 
@@ -120,23 +119,30 @@ function RecordAnswerSection({
       const JsonFeedbackResp = JSON.parse(mockJsonResp);
 
       // Save to database
-      const resp = await db.insert(UserAnswer).values({
-        mockIdRef: interviewData?.mockId,
-        question: mockInterviewQuestion[activeQuestionIndex]?.question,
-        correctAns: mockInterviewQuestion[activeQuestionIndex]?.answer,
-        userAns: userAnswer,
-        feedback: JsonFeedbackResp?.feedback,
-        rating: JsonFeedbackResp?.rating,
-        userEmail: user?.primaryEmailAddress?.emailAddress,
-        createdAt: moment().format("DD-MM-yyyy"),
-      });
+      const { data, error } = await supabase
+        .from("userAnswer")
+        .insert({
+          mockId: interviewData?.mockId,
+          question: mockInterviewQuestion[activeQuestionIndex]?.question,
+          correctAns: mockInterviewQuestion[activeQuestionIndex]?.answer,
+          userAns: userAnswer,
+          feedback: JsonFeedbackResp?.feedback,
+          rating: JsonFeedbackResp?.rating,
+          userEmail: user?.primaryEmailAddress?.emailAddress,
+          createdAt: moment().format("DD-MM-yyyy"),
+        });
 
-      if (resp) {
+      if (error) {
+        console.error("Error saving answer:", error);
         toast.dismiss();
-        toast.success("User Answer recorded successfully!");
-        setUserAnswer("");
-        setResults([]);
+        toast.error("Failed to save your answer. Please try again.");
+        return;
       }
+
+      toast.dismiss();
+      toast.success("User Answer recorded successfully!");
+      setUserAnswer("");
+      setResults([]);
     } catch (error) {
       console.error("Error in UpdateUserAnswer:", error);
       toast.dismiss();
