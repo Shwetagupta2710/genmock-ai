@@ -26,7 +26,7 @@ function Header() {
     <>
       <div className="flex p-4 items-center justify-between bg-secondary shadow-sm relative z-50">
         <Image
-          src="/logo.svg"
+          src="/custom-logo.svg"
           width={120}
           height={80}
           alt="logo"
