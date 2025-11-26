@@ -14,22 +14,40 @@ function Header() {
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const { user, signOut } = useAuth();
+  const { user, signOut, loading } = useAuth();
 
   const handleSignOut = async () => {
     await signOut();
     toast.success("Signed out successfully!");
-    router.push("/");
+    window.location.href = "/";
   };
 
-  const publicNavItems = [
+  const navItems = [
     { name: "Home", path: "/" },
+    { name: "Dashboard", path: "/dashboard" },
+    { name: "How It Works", path: "/dashboard/how-it-works" },
+    { name: "About Us", path: "/dashboard/about" },
   ];
 
   const handleNavClick = (itemPath) => {
     router.push(itemPath);
     setMobileMenuOpen(false);
   };
+
+  if (loading) {
+    return (
+      <div className="sticky top-0 z-50 flex p-5 items-center justify-between bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-sm border-b border-gray-200/50 dark:border-gray-800/50 transition-colors">
+        <Image
+          src="/custom-logo.svg"
+          width={130}
+          height={85}
+          alt="logo"
+          className="cursor-pointer transition-transform hover:scale-105"
+        />
+        <div className="animate-pulse h-10 w-32 bg-gray-200 dark:bg-gray-700 rounded"></div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -44,7 +62,7 @@ function Header() {
         />
 
         <ul className="hidden md:flex gap-8 items-center">
-          {publicNavItems.map((item) => (
+          {navItems.map((item) => (
             <li
               key={item.path}
               onClick={() => router.push(item.path)}
@@ -68,36 +86,29 @@ function Header() {
           {user ? (
             <div className="relative">
               <Button
-                variant="ghost"
+                variant="outline"
                 size="sm"
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
-                className="flex items-center gap-2 border border-gray-200 dark:border-gray-700"
+                className="flex items-center gap-2"
               >
                 <User className="h-4 w-4" />
-                <span className="hidden sm:inline max-w-[120px] truncate">{user?.email?.split("@")[0]}</span>
+                <span className="hidden sm:inline max-w-[120px] truncate">
+                  {user?.email?.split("@")[0]}
+                </span>
               </Button>
               {userMenuOpen && (
                 <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50">
                   <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
                     <p className="text-xs text-gray-500 dark:text-gray-400">Signed in as</p>
-                    <p className="text-sm font-medium text-gray-900 dark:text-white truncate">{user?.email}</p>
+                    <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                      {user?.email}
+                    </p>
                   </div>
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => {
-                      setUserMenuOpen(false);
-                      router.push("/dashboard");
-                    }}
-                    className="w-full justify-start text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
-                  >
-                    Dashboard
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
                     onClick={handleSignOut}
-                    className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20"
+                    className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 mt-1"
                   >
                     <LogOut className="h-4 w-4 mr-2" />
                     Sign Out
@@ -137,7 +148,7 @@ function Header() {
       {mobileMenuOpen && (
         <div className="md:hidden bg-white dark:bg-gray-900 border-b shadow-xl absolute top-[85px] left-0 right-0 z-40 animate-slide-down backdrop-blur-xl">
           <ul className="flex flex-col">
-            {publicNavItems.map((item, index) => (
+            {navItems.map((item, index) => (
               <li
                 key={item.path}
                 onClick={() => handleNavClick(item.path)}
@@ -150,49 +161,19 @@ function Header() {
                 {item.name}
               </li>
             ))}
-            {!user && (
-              <>
-                <li
-                  onClick={() => {
-                    router.push("/sign-in");
-                    setMobileMenuOpen(false);
-                  }}
-                  className="px-6 py-4 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 cursor-pointer text-gray-700 dark:text-gray-300"
-                >
-                  Sign In
-                </li>
-                <li
-                  onClick={() => {
-                    router.push("/sign-up");
-                    setMobileMenuOpen(false);
-                  }}
-                  className="px-6 py-4 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 cursor-pointer text-indigo-600 dark:text-indigo-400 font-medium"
-                >
-                  Sign Up
-                </li>
-              </>
-            )}
             {user && (
-              <>
-                <li
-                  onClick={() => {
-                    router.push("/dashboard");
-                    setMobileMenuOpen(false);
-                  }}
-                  className="px-6 py-4 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 cursor-pointer text-gray-700 dark:text-gray-300"
-                >
-                  Dashboard
-                </li>
-                <li
-                  onClick={() => {
-                    handleSignOut();
-                    setMobileMenuOpen(false);
-                  }}
-                  className="px-6 py-4 hover:bg-red-50 dark:hover:bg-red-900/20 cursor-pointer text-red-600"
-                >
+              <li
+                onClick={() => {
+                  handleSignOut();
+                  setMobileMenuOpen(false);
+                }}
+                className="px-6 py-4 hover:bg-red-50 dark:hover:bg-red-900/20 cursor-pointer text-red-600 border-t border-gray-200 dark:border-gray-800"
+              >
+                <div className="flex items-center gap-2">
+                  <LogOut className="h-4 w-4" />
                   Sign Out
-                </li>
-              </>
+                </div>
+              </li>
             )}
           </ul>
         </div>
