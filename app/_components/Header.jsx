@@ -40,10 +40,10 @@ function Header() {
             <li
               key={item.path}
               onClick={() => router.push(item.path)}
-              className={`relative font-medium transition-all cursor-pointer group ${
+              className={`relative transition-all cursor-pointer group ${
                 path === item.path
-                  ? "text-indigo-600 dark:text-indigo-400 font-semibold"
-                  : "text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400"
+                  ? "text-indigo-600 dark:text-indigo-400 font-medium"
+                  : "text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-normal"
               }`}
             >
               {item.name}
@@ -82,8 +82,8 @@ function Header() {
                 onClick={() => handleNavClick(item.path)}
                 className={`px-6 py-4 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 cursor-pointer border-b last:border-b-0 transition-colors duration-200 ${
                   path === item.path
-                    ? "bg-gradient-to-r from-indigo-50 to-indigo-100 dark:from-indigo-900/30 dark:to-indigo-900/40 text-indigo-600 dark:text-indigo-400 font-semibold border-l-4 border-l-indigo-600 dark:border-l-indigo-400"
-                    : "text-gray-700 dark:text-gray-300"
+                    ? "bg-gradient-to-r from-indigo-50 to-indigo-100 dark:from-indigo-900/30 dark:to-indigo-900/40 text-indigo-600 dark:text-indigo-400 font-medium border-l-4 border-l-indigo-600 dark:border-l-indigo-400"
+                    : "text-gray-700 dark:text-gray-300 font-normal"
                 }`}
                 style={{animation: `slide-up 0.3s ease-out ${index * 0.05}s both`}}
               >

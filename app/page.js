@@ -28,7 +28,7 @@ export default function Home() {
             <span>Your AI Interview Coach</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-gray-900 dark:text-white max-w-5xl mx-auto leading-tight tracking-tight px-2">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-semibold text-gray-900 dark:text-white max-w-5xl mx-auto leading-tight tracking-tight px-2">
             Ace Your Next Interview with{" "}
             <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-500 bg-clip-text text-transparent animate-gradient">GenMock AI</span>
           </h1>
@@ -62,7 +62,7 @@ export default function Home() {
             <div className="bg-gradient-to-br from-indigo-500 to-purple-500 w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
               <Brain className="w-7 h-7 text-white" />
             </div>
-            <p className="font-bold text-base sm:text-lg text-gray-900 dark:text-white">
+            <p className="font-semibold text-base sm:text-lg text-gray-900 dark:text-white">
               AI-Powered Questions
             </p>
             <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
@@ -74,7 +74,7 @@ export default function Home() {
             <div className="bg-gradient-to-br from-indigo-600 to-indigo-400 w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
               <Mic className="w-7 h-7 text-white" />
             </div>
-            <p className="font-bold text-base sm:text-lg text-gray-900 dark:text-white">
+            <p className="font-semibold text-base sm:text-lg text-gray-900 dark:text-white">
               Voice-Based Practice
             </p>
             <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
@@ -86,7 +86,7 @@ export default function Home() {
             <div className="bg-gradient-to-br from-purple-500 to-indigo-500 w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
               <MessageSquare className="w-7 h-7 text-white" />
             </div>
-            <p className="font-bold text-base sm:text-lg text-gray-900 dark:text-white">
+            <p className="font-semibold text-base sm:text-lg text-gray-900 dark:text-white">
               Instant AI Feedback
             </p>
             <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
@@ -108,7 +108,7 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center space-y-4 mb-12">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-gray-900 dark:text-white">
               Why Choose <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">GenMock AI</span>?
             </h2>
 
@@ -122,7 +122,7 @@ export default function Home() {
               <div className="bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-indigo-900/50 dark:to-purple-900/50 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                 <Brain className="w-9 h-9 text-indigo-600 dark:text-indigo-400" />
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white mb-3">
                 AI Generated Interviews
               </h3>
               <p className="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
@@ -134,7 +134,7 @@ export default function Home() {
               <div className="bg-gradient-to-br from-indigo-100 to-indigo-200 dark:from-indigo-900/50 dark:to-indigo-800/50 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                 <Mic className="w-9 h-9 text-indigo-600 dark:text-indigo-400" />
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white mb-3">
                 Voice Recording + Analysis
               </h3>
               <p className="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
@@ -146,7 +146,7 @@ export default function Home() {
               <div className="bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-purple-900/50 dark:to-indigo-900/50 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                 <TrendingUp className="w-9 h-9 text-purple-600 dark:text-purple-400" />
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3">
+              <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white mb-3">
                 Personalized Improvement Tips
               </h3>
               <p className="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
@@ -164,7 +164,7 @@ export default function Home() {
         <div className="absolute bottom-[-100px] right-[10%] w-[400px] h-[400px] bg-white/10 blur-[150px] rounded-full"></div>
 
         <div className="relative z-10 max-w-4xl mx-auto space-y-6">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold px-2 leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold px-2 leading-tight">
             Ready to Land Your Dream Job?
           </h2>
 
