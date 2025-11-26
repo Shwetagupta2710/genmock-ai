@@ -4,6 +4,7 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 function Header() {
   const path = usePathname();
@@ -24,7 +25,7 @@ function Header() {
 
   return (
     <>
-      <div className="sticky top-0 z-50 flex p-5 items-center justify-between bg-white/80 backdrop-blur-xl shadow-sm border-b border-gray-200/50">
+      <div className="sticky top-0 z-50 flex p-5 items-center justify-between bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-sm border-b border-gray-200/50 dark:border-gray-800/50 transition-colors">
         <Image
           src="/custom-logo.svg"
           width={130}
@@ -41,30 +42,31 @@ function Header() {
               onClick={() => router.push(item.path)}
               className={`relative font-medium transition-all cursor-pointer group ${
                 path === item.path
-                  ? "text-teal-600 font-semibold"
-                  : "text-gray-700 hover:text-teal-600"
+                  ? "text-indigo-600 dark:text-indigo-400 font-semibold"
+                  : "text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400"
               }`}
             >
               {item.name}
-              <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-teal-600 transition-all duration-300 ${
+              <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-indigo-600 to-indigo-400 transition-all duration-300 ${
                 path === item.path ? "w-full" : "w-0 group-hover:w-full"
               }`}></span>
             </li>
           ))}
         </ul>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
           <UserButton afterSignOutUrl="/" />
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="md:hidden p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? (
-              <X className="h-6 w-6 text-gray-700" />
+              <X className="h-6 w-6 text-gray-700 dark:text-gray-300" />
             ) : (
-              <Menu className="h-6 w-6 text-gray-700" />
+              <Menu className="h-6 w-6 text-gray-700 dark:text-gray-300" />
             )}
           </button>
         </div>
@@ -72,16 +74,16 @@ function Header() {
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-b shadow-xl absolute top-[85px] left-0 right-0 z-40 animate-slide-down backdrop-blur-xl">
+        <div className="md:hidden bg-white dark:bg-gray-900 border-b shadow-xl absolute top-[85px] left-0 right-0 z-40 animate-slide-down backdrop-blur-xl">
           <ul className="flex flex-col">
             {navItems.map((item, index) => (
               <li
                 key={item.path}
                 onClick={() => handleNavClick(item.path)}
-                className={`px-6 py-4 hover:bg-teal-50 cursor-pointer border-b last:border-b-0 transition-colors duration-200 ${
+                className={`px-6 py-4 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 cursor-pointer border-b last:border-b-0 transition-colors duration-200 ${
                   path === item.path
-                    ? "bg-gradient-to-r from-blue-50 to-teal-50 text-teal-600 font-semibold border-l-4 border-l-teal-600"
-                    : "text-gray-700"
+                    ? "bg-gradient-to-r from-indigo-50 to-indigo-100 dark:from-indigo-900/30 dark:to-indigo-900/40 text-indigo-600 dark:text-indigo-400 font-semibold border-l-4 border-l-indigo-600 dark:border-l-indigo-400"
+                    : "text-gray-700 dark:text-gray-300"
                 }`}
                 style={{animation: `slide-up 0.3s ease-out ${index * 0.05}s both`}}
               >

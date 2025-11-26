@@ -134,35 +134,35 @@ function AddNewInterview() {
   return (
     <div>
       <div
-        className="group p-10 border-2 border-dashed border-gray-300 rounded-2xl bg-gradient-to-br from-white to-gray-50 hover:from-blue-50 hover:to-teal-50 hover:border-teal-400 hover:scale-105 hover:shadow-xl cursor-pointer transition-all duration-300"
+        className="group p-10 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-2xl bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 hover:from-indigo-50 hover:to-purple-50 dark:hover:from-indigo-950/50 dark:hover:to-purple-950/50 hover:border-indigo-400 dark:hover:border-indigo-600 hover:scale-105 hover:shadow-xl cursor-pointer transition-all duration-300"
         onClick={() => setOpenDialog(true)}
       >
         <div className="flex flex-col items-center space-y-3">
-          <div className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-teal-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+          <div className="w-14 h-14 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
             <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
             </svg>
           </div>
-          <h1 className="font-bold text-lg text-gray-900">Create New Interview</h1>
-          <p className="text-sm text-gray-600 text-center">Start a new AI-powered mock interview</p>
+          <h1 className="font-bold text-lg text-gray-900 dark:text-white">Create New Interview</h1>
+          <p className="text-sm text-gray-600 dark:text-gray-300 text-center">Start a new AI-powered mock interview</p>
         </div>
       </div>
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
           <DialogHeader>
-            <DialogTitle className="font-bold text-2xl sm:text-3xl bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
+            <DialogTitle className="font-bold text-2xl sm:text-3xl bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
               Tell Us About Your Interview
             </DialogTitle>
           </DialogHeader>
           <DialogDescription>
             <form onSubmit={onSubmit}>
               <div>
-                <p className="text-gray-600 mb-6">
+                <p className="text-gray-600 dark:text-gray-300 mb-6">
                   Provide details about the job position, required skills, and your experience level to get tailored interview questions.
                 </p>
                 <div className="space-y-5 mt-6">
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Job Role/Position</label>
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Job Role/Position</label>
                     <div className="flex items-center space-x-2">
                       <Input
                         placeholder="Ex. Full Stack Developer"
@@ -170,7 +170,7 @@ function AddNewInterview() {
                         required
                         onChange={(e) => setJobPosition(e.target.value)}
                         list="jobRoles"
-                        className="border-gray-300 focus:border-teal-500 focus:ring-teal-500"
+                        className="border-gray-300 dark:border-gray-700 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-white"
                       />
                       <datalist id="jobRoles">
                         {JOB_ROLE_SUGGESTIONS.map((role) => (
@@ -183,25 +183,25 @@ function AddNewInterview() {
                         size="icon"
                         onClick={() => autoSuggestTechStack(jobPosition)}
                         disabled={!jobPosition}
-                        className="border-teal-300 hover:bg-teal-50"
+                        className="border-indigo-300 dark:border-indigo-700 hover:bg-indigo-50 dark:hover:bg-indigo-950/50"
                         title="Auto-suggest tech stack"
                       >
-                        <Sparkles className="h-4 w-4 text-teal-600" />
+                        <Sparkles className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
                       </Button>
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Job Description/Tech Stack</label>
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Job Description/Tech Stack</label>
                     <Textarea
                       placeholder="Ex. React, Angular, NodeJs, MySql etc"
                       value={jobDescription}
                       required
                       onChange={(e) => setJobDescription(e.target.value)}
-                      className="border-gray-300 focus:border-teal-500 focus:ring-teal-500 min-h-[100px]"
+                      className="border-gray-300 dark:border-gray-700 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-white min-h-[100px]"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Years of Experience</label>
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Years of Experience</label>
                     <Input
                       placeholder="Ex. 5"
                       type="number"
@@ -210,7 +210,7 @@ function AddNewInterview() {
                       value={jobExperience}
                       required
                       onChange={(e) => setJobExperience(e.target.value)}
-                      className="border-gray-300 focus:border-teal-500 focus:ring-teal-500"
+                      className="border-gray-300 dark:border-gray-700 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-white"
                     />
                   </div>
                 </div>
@@ -220,14 +220,14 @@ function AddNewInterview() {
                   type="button"
                   variant="outline"
                   onClick={() => setOpenDialog(false)}
-                  className="border-gray-300 hover:bg-gray-50"
+                  className="border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800"
                 >
                   Cancel
                 </Button>
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white px-6"
+                  className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-6"
                 >
                   {loading ? (
                     <>

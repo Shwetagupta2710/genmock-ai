@@ -39,7 +39,7 @@ const InterviewItemCard = ({ interview }) => {
   };
 
   return (
-    <div className="group relative border-2 border-gray-200 hover:border-teal-300 shadow-md hover:shadow-2xl rounded-2xl p-6 bg-white transition-all duration-300 hover:-translate-y-1">
+    <div className="group relative border-2 border-gray-200 dark:border-gray-700 hover:border-indigo-300 dark:hover:border-indigo-600 shadow-md hover:shadow-2xl rounded-2xl p-6 bg-white dark:bg-gray-800 transition-all duration-300 hover:-translate-y-1">
       {/* Delete button in the top-right corner */}
       <Button
         size="sm"
@@ -53,21 +53,21 @@ const InterviewItemCard = ({ interview }) => {
       {/* Card Content */}
       <div className="space-y-3 mb-5">
         <div className="flex items-start gap-3">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-100 to-teal-100 flex items-center justify-center flex-shrink-0">
-            <svg className="w-6 h-6 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-indigo-900/50 dark:to-purple-900/50 flex items-center justify-center flex-shrink-0">
+            <svg className="w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
           </div>
           <div className="flex-1">
-            <h2 className="font-bold text-lg text-gray-900 mb-1">{interview?.jobPosition}</h2>
+            <h2 className="font-bold text-lg text-gray-900 dark:text-white mb-1">{interview?.jobPosition}</h2>
             <div className="space-y-1">
-              <p className="text-sm text-gray-600 flex items-center gap-2">
+              <p className="text-sm text-gray-600 dark:text-gray-300 flex items-center gap-2">
                 <span className="font-medium">Experience:</span>
-                <span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
+                <span className="px-2 py-0.5 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 rounded-full text-xs font-semibold">
                   {interview?.jobExperience} Year(s)
                 </span>
               </p>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 Created: {interview?.createdAt}
               </p>
             </div>
@@ -78,13 +78,13 @@ const InterviewItemCard = ({ interview }) => {
       <div className="flex gap-3">
         <Button
           variant="outline"
-          className="flex-1 border-gray-300 hover:border-teal-500 hover:bg-teal-50 hover:text-teal-700 transition-colors"
+          className="flex-1 border-gray-300 dark:border-gray-700 hover:border-indigo-500 dark:hover:border-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
           onClick={onFeedbackPress}
         >
           View Feedback
         </Button>
         <Button
-          className="flex-1 bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white shadow-md hover:shadow-lg transition-all"
+          className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-md hover:shadow-lg transition-all"
           onClick={onStart}
         >
           Start Interview
