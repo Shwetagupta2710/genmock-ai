@@ -14,7 +14,7 @@ import { chatSession, retryWithBackoff } from "@/utils/GeminiAIModal";
 import { LoaderCircle, Sparkles } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
 import { supabase } from "@/utils/db";
-import { useUser } from "@clerk/nextjs";
+import { useAuth } from "@/contexts/AuthContext";
 import moment from "moment";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -51,7 +51,7 @@ function AddNewInterview() {
   const [jobDescription, setJobDescription] = useState("");
   const [jobExperience, setJobExperience] = useState("");
   const [loading, setLoading] = useState(false);
-  const { user } = useUser();
+  const { user } = useAuth();
   const router = useRouter();
 
   // Auto-suggest tech stack based on job role
@@ -94,7 +94,7 @@ function AddNewInterview() {
           jobPosition: jobPosition,
           jobDesc: jobDescription,
           jobExperience: jobExperience,
-          createdBy: user?.primaryEmailAddress?.emailAddress,
+          createdBy: user?.email,
           createdAt: moment().format("DD-MM-YYYY"),
         })
         .select();

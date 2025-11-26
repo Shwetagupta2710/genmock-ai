@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import { chatSession, retryWithBackoff } from "@/utils/GeminiAIModal";
 import { supabase } from "@/utils/db";
 import moment from "moment";
-import { useUser } from "@clerk/nextjs";
+import { useAuth } from "@/contexts/AuthContext";
 
 function RecordAnswerSection({
   mockInterviewQuestion,
@@ -21,7 +21,7 @@ function RecordAnswerSection({
   const [isProcessing, setIsProcessing] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { user } = useUser();
+  const { user } = useAuth();
 
   // Ensure component only renders on client side
   useEffect(() => {
@@ -128,7 +128,7 @@ function RecordAnswerSection({
           userAns: userAnswer,
           feedback: JsonFeedbackResp?.feedback,
           rating: JsonFeedbackResp?.rating,
-          userEmail: user?.primaryEmailAddress?.emailAddress,
+          userEmail: user?.email,
           createdAt: moment().format("DD-MM-yyyy"),
         });
 

@@ -1,11 +1,11 @@
 "use client";
 import { supabase } from "@/utils/db";
-import { useUser } from "@clerk/nextjs";
+import { useAuth } from "@/contexts/AuthContext";
 import React, { useEffect, useState } from "react";
 import InterviewItemCard from "./InterviewItemCard";
 
 const InterviewList = () => {
-  const { user } = useUser();
+  const { user } = useAuth();
   const [InterviewList, setInterviewList] = useState([]);
   useEffect(() => {
     user && GetInterviewList();
@@ -14,7 +14,7 @@ const InterviewList = () => {
     const { data, error } = await supabase
       .from("mockInterview")
       .select("*")
-      .eq("createdBy", user?.primaryEmailAddress?.emailAddress)
+      .eq("createdBy", user?.email)
       .order("id", { ascending: false });
 
     if (error) {

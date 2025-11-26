@@ -1,14 +1,24 @@
 "use client";
-import { UserButton } from "@clerk/nextjs";
+import { useAuth } from "@/contexts/AuthContext";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogOut, User } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 function Header() {
   const path = usePathname();
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
+
+  const handleSignOut = async () => {
+    await signOut();
+    toast.success("Signed out successfully!");
+    router.push("/sign-in");
+  };
 
   const navItems = [
     { name: "Home", path: "/" },
@@ -51,7 +61,33 @@ function Header() {
 
         {/* Mobile & Desktop Right Section */}
         <div className="flex items-center gap-3">
-          <UserButton />
+          <div className="relative">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setUserMenuOpen(!userMenuOpen)}
+              className="flex items-center gap-2"
+            >
+              <User className="h-4 w-4" />
+              <span className="hidden sm:inline">{user?.email?.split("@")[0]}</span>
+            </Button>
+            {userMenuOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50">
+                <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">{user?.email}</p>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleSignOut}
+                  className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20"
+                >
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Sign Out
+                </Button>
+              </div>
+            )}
+          </div>
 
           {/* Mobile Menu Button */}
           <button
