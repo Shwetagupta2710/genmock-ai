@@ -2,10 +2,8 @@ import { createServerClient } from '@supabase/ssr';
 import { NextResponse } from 'next/server';
 
 export async function middleware(req) {
-  let res = NextResponse.next({
-    request: {
-      headers: req.headers,
-    },
+  let supabaseResponse = NextResponse.next({
+    request: req,
   });
 
   const supabase = createServerClient(
@@ -13,42 +11,19 @@ export async function middleware(req) {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     {
       cookies: {
-        get(name) {
-          return req.cookies.get(name)?.value;
+        getAll() {
+          return req.cookies.getAll();
         },
-        set(name, value, options) {
-          req.cookies.set({
-            name,
-            value,
-            ...options,
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) =>
+            req.cookies.set(name, value)
+          );
+          supabaseResponse = NextResponse.next({
+            request: req,
           });
-          res = NextResponse.next({
-            request: {
-              headers: req.headers,
-            },
-          });
-          res.cookies.set({
-            name,
-            value,
-            ...options,
-          });
-        },
-        remove(name, options) {
-          req.cookies.set({
-            name,
-            value: '',
-            ...options,
-          });
-          res = NextResponse.next({
-            request: {
-              headers: req.headers,
-            },
-          });
-          res.cookies.set({
-            name,
-            value: '',
-            ...options,
-          });
+          cookiesToSet.forEach(({ name, value, options }) =>
+            supabaseResponse.cookies.set(name, value, options)
+          );
         },
       },
     }
@@ -58,11 +33,10 @@ export async function middleware(req) {
     data: { session },
   } = await supabase.auth.getSession();
 
-  const isAuthPage = req.nextUrl.pathname.startsWith('/sign-in') ||
-                     req.nextUrl.pathname.startsWith('/sign-up');
-  const isDashboard = req.nextUrl.pathname.startsWith('/dashboard');
+  const isAuthPage = req.nextUrl.pathname === '/sign-in' || req.nextUrl.pathname === '/sign-up';
+  const isDashboardPath = req.nextUrl.pathname.startsWith('/dashboard');
 
-  if (!session && isDashboard) {
+  if (!session && isDashboardPath) {
     const redirectUrl = new URL('/sign-in', req.url);
     return NextResponse.redirect(redirectUrl);
   }
@@ -72,7 +46,7 @@ export async function middleware(req) {
     return NextResponse.redirect(redirectUrl);
   }
 
-  return res;
+  return supabaseResponse;
 }
 
 export const config = {

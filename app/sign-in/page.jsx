@@ -19,21 +19,23 @@ export default function SignIn() {
     e.preventDefault();
     setLoading(true);
 
-    const { error } = await signIn(email, password);
+    try {
+      const { data, error } = await signIn(email, password);
 
-    if (error) {
-      toast.error(error.message);
+      if (error) {
+        toast.error(error.message);
+        setLoading(false);
+        return;
+      }
+
+      if (data?.session) {
+        toast.success("Signed in successfully!");
+        window.location.href = "/dashboard";
+      }
+    } catch (err) {
+      toast.error("An error occurred. Please try again.");
       setLoading(false);
-      return;
     }
-
-    toast.success("Signed in successfully!");
-
-    // Use router.replace to avoid back button issues and wait for auth state to update
-    setTimeout(() => {
-      router.replace("/dashboard");
-      router.refresh();
-    }, 500);
   };
 
   return (
@@ -60,6 +62,7 @@ export default function SignIn() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
                 required
+                disabled={loading}
                 className="border-gray-300 dark:border-gray-700 focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
               />
             </div>
@@ -74,6 +77,7 @@ export default function SignIn() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 required
+                disabled={loading}
                 className="border-gray-300 dark:border-gray-700 focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
               />
             </div>

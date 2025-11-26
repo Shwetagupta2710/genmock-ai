@@ -31,28 +31,29 @@ export default function SignUp() {
 
     setLoading(true);
 
-    const { data, error } = await signUp(email, password);
+    try {
+      const { data, error } = await signUp(email, password);
 
-    if (error) {
-      toast.error(error.message);
+      if (error) {
+        toast.error(error.message);
+        setLoading(false);
+        return;
+      }
+
+      if (data?.user && !data?.session) {
+        toast.success("Account created! Please check your email to verify your account.");
+        setLoading(false);
+        return;
+      }
+
+      if (data?.session) {
+        toast.success("Account created successfully!");
+        window.location.href = "/dashboard";
+      }
+    } catch (err) {
+      toast.error("An error occurred. Please try again.");
       setLoading(false);
-      return;
     }
-
-    // Check if email confirmation is required
-    if (data?.user && !data?.session) {
-      toast.success("Account created! Please check your email to verify your account.");
-      setLoading(false);
-      return;
-    }
-
-    toast.success("Account created successfully!");
-
-    // Wait for auth state to update then redirect
-    setTimeout(() => {
-      router.replace("/dashboard");
-      router.refresh();
-    }, 500);
   };
 
   return (
@@ -79,6 +80,7 @@ export default function SignUp() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
                 required
+                disabled={loading}
                 className="border-gray-300 dark:border-gray-700 focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
               />
             </div>
@@ -93,6 +95,7 @@ export default function SignUp() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 required
+                disabled={loading}
                 className="border-gray-300 dark:border-gray-700 focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
               />
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
@@ -110,6 +113,7 @@ export default function SignUp() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="••••••••"
                 required
+                disabled={loading}
                 className="border-gray-300 dark:border-gray-700 focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
               />
             </div>
