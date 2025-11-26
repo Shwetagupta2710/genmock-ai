@@ -59,14 +59,14 @@ const InterviewItemCard = ({ interview }) => {
             </svg>
           </div>
           <div className="flex-1 min-w-0">
-            <h2 className="font-bold text-lg text-gray-900 dark:text-white mb-1 truncate">{interview?.jobPosition}</h2>
-            <div className="space-y-1">
-              <p className="text-sm text-gray-600 dark:text-gray-300 flex items-center gap-2">
-                <span className="font-medium">Experience:</span>
-                <span className="px-2 py-0.5 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 rounded-full text-xs font-semibold">
+            <h2 className="font-semibold text-lg text-gray-900 dark:text-white mb-2 truncate">{interview?.jobPosition}</h2>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-gray-500 dark:text-gray-400">Experience:</span>
+                <span className="px-2.5 py-0.5 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 rounded-md text-xs font-medium border border-indigo-200 dark:border-indigo-800">
                   {interview?.jobExperience} Year(s)
                 </span>
-              </p>
+              </div>
               <p className="text-xs text-gray-500 dark:text-gray-400">
                 Created: {interview?.createdAt}
               </p>
@@ -78,13 +78,13 @@ const InterviewItemCard = ({ interview }) => {
       <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
         <Button
           variant="outline"
-          className="flex-1 border-gray-300 dark:border-gray-700 hover:border-indigo-500 dark:hover:border-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors text-sm py-2"
+          className="flex-1 border-gray-300 dark:border-gray-700 hover:border-indigo-500 dark:hover:border-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors text-sm py-2 font-normal"
           onClick={onFeedbackPress}
         >
           Feedback
         </Button>
         <Button
-          className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-md hover:shadow-lg transition-all text-sm py-2"
+          className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-md hover:shadow-lg transition-all text-sm py-2 font-normal"
           onClick={onStart}
         >
           Start
@@ -99,9 +99,9 @@ const InterviewItemCard = ({ interview }) => {
               <div className="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
                 <Trash className="w-6 h-6 text-red-600 dark:text-red-400" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white">Delete Interview</h3>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Delete Interview</h3>
             </div>
-            <p className="text-gray-600 dark:text-gray-300 mb-6">
+            <p className="text-gray-600 dark:text-gray-300 mb-6 font-normal">
               Are you sure you want to delete this interview? This action cannot be undone and all related data will be permanently removed.
             </p>
             <div className="flex gap-3">

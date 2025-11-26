@@ -143,14 +143,14 @@ function AddNewInterview() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
             </svg>
           </div>
-          <h1 className="font-bold text-lg text-gray-900 dark:text-white">Create New Interview</h1>
+          <h1 className="font-semibold text-lg text-gray-900 dark:text-white">Create New Interview</h1>
           <p className="text-sm text-gray-600 dark:text-gray-300 text-center">Start a new AI-powered mock interview</p>
         </div>
       </div>
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
           <DialogHeader>
-            <DialogTitle className="font-bold text-2xl sm:text-3xl bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            <DialogTitle className="font-semibold text-2xl sm:text-3xl bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
               Tell Us About Your Interview
             </DialogTitle>
           </DialogHeader>
@@ -162,7 +162,7 @@ function AddNewInterview() {
                 </p>
                 <div className="space-y-5 mt-6">
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Job Role/Position</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Job Role/Position</label>
                     <div className="flex items-center space-x-2">
                       <Input
                         placeholder="Ex. Full Stack Developer"
@@ -191,7 +191,7 @@ function AddNewInterview() {
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Job Description/Tech Stack</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Job Description/Tech Stack</label>
                     <Textarea
                       placeholder="Ex. React, Angular, NodeJs, MySql etc"
                       value={jobDescription}
@@ -201,7 +201,7 @@ function AddNewInterview() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Years of Experience</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Years of Experience</label>
                     <Input
                       placeholder="Ex. 5"
                       type="number"

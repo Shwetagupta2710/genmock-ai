@@ -64,7 +64,7 @@ const HowItWorksPage = () => {
             className="object-contain mb-6"
           />
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-4">
             How It Works
           </h1>
 
@@ -88,7 +88,7 @@ const HowItWorksPage = () => {
                   {index + 1}
                 </span>
               </div>
-              <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                 {step.title}
               </h2>
               <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">

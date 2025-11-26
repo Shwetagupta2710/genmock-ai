@@ -89,7 +89,7 @@ export default function AboutUsPage() {
       <div className="max-w-6xl mx-auto">
         {/* HERO */}
         <div className="text-center mb-12 sm:mb-16">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-4">
             About GenMock AI
           </h1>
 
@@ -122,7 +122,7 @@ export default function AboutUsPage() {
         </div>
 
         {/* CORE VALUES */}
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-white mb-10">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center text-gray-900 dark:text-white mb-10">
           Our Core Values
         </h2>
 
@@ -136,7 +136,7 @@ export default function AboutUsPage() {
                 {value.icon}
               </div>
 
-              <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-3 text-center">
+              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-3 text-center">
                 {value.title}
               </h3>
 

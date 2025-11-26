@@ -89,7 +89,7 @@ const Feedback = ({ params }) => {
           <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-indigo-900/50 dark:to-purple-900/50 flex items-center justify-center">
             <CheckCircle2 className="h-10 w-10 text-indigo-600 dark:text-indigo-400" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
             No Interview Feedback Available
           </h2>
           <p className="text-gray-600 dark:text-gray-300 mb-6">
@@ -112,7 +112,7 @@ const Feedback = ({ params }) => {
                 <CheckCircle2 className="h-8 w-8 text-green-600 dark:text-green-400" />
               </div>
               <div>
-                <h2 className="text-2xl sm:text-3xl font-bold text-green-600 dark:text-green-400">
+                <h2 className="text-2xl sm:text-3xl font-semibold text-green-600 dark:text-green-400">
                   Congratulations!
                 </h2>
                 <p className="text-gray-600 dark:text-gray-300">
@@ -128,7 +128,7 @@ const Feedback = ({ params }) => {
                   <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Overall Rating</p>
                 </div>
                 <p
-                  className={`text-3xl font-bold ${getRatingColor(averageRating)}`}
+                  className={`text-3xl font-semibold ${getRatingColor(averageRating)}`}
                 >
                   {averageRating}/10
                 </p>
@@ -138,7 +138,7 @@ const Feedback = ({ params }) => {
                   <CheckCircle2 className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
                   <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Total Questions</p>
                 </div>
-                <p className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">
+                <p className="text-3xl font-semibold text-indigo-600 dark:text-indigo-400">
                   {feedbackList.length}
                 </p>
               </div>
@@ -147,7 +147,7 @@ const Feedback = ({ params }) => {
 
           {/* Feedback List */}
           <div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
               Detailed Interview Feedback
             </h3>
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
@@ -158,8 +158,8 @@ const Feedback = ({ params }) => {
               {feedbackList.map((item, index) => (
                 <Collapsible key={index}>
                   <CollapsibleTrigger className="p-4 flex justify-between items-center gap-4 w-full bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm text-left transition-all group">
-                    <span className="font-medium text-gray-900 dark:text-white flex-1">
-                      <span className="text-indigo-600 dark:text-indigo-400 font-bold">Q{index + 1}.</span> {item.question}
+                    <span className="font-normal text-gray-900 dark:text-white flex-1">
+                      <span className="text-indigo-600 dark:text-indigo-400 font-semibold">Q{index + 1}.</span> {item.question}
                     </span>
                     <ChevronsUpDown className="h-5 w-5 text-gray-400 dark:text-gray-500 flex-shrink-0 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors" />
                   </CollapsibleTrigger>
@@ -169,7 +169,7 @@ const Feedback = ({ params }) => {
                         <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1 uppercase tracking-wide">
                           Rating
                         </p>
-                        <p className={`text-2xl font-bold ${getRatingColor(item.rating)}`}>
+                        <p className={`text-2xl font-semibold ${getRatingColor(item.rating)}`}>
                           {item.rating}/10
                         </p>
                       </div>

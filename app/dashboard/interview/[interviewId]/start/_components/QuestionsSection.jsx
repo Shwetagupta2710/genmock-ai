@@ -40,7 +40,7 @@ function QuestionsSection({ mockInterviewQuestion = [], activeQuestionIndex = 0,
         {mockInterviewQuestion.length > 0 && (
           <div className="mt-6 p-5 border border-indigo-200 dark:border-indigo-800 rounded-xl bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/30 relative">
             <div className="flex items-start justify-between gap-3 mb-3">
-              <h3 className="font-bold text-base text-indigo-600 dark:text-indigo-400">
+              <h3 className="font-semibold text-base text-indigo-600 dark:text-indigo-400">
                 Question {activeQuestionIndex + 1}
               </h3>
               <button
@@ -63,7 +63,7 @@ function QuestionsSection({ mockInterviewQuestion = [], activeQuestionIndex = 0,
 
         {/* Note Section */}
         <div className="mt-6 border border-amber-200 dark:border-amber-800 rounded-xl p-4 bg-amber-50 dark:bg-amber-900/20">
-          <h2 className="flex gap-2 items-center text-amber-800 dark:text-amber-300 mb-2 font-semibold">
+          <h2 className="flex gap-2 items-center text-amber-800 dark:text-amber-300 mb-2 font-medium">
             <Lightbulb className="w-5 h-5" />
             <span>Note:</span>
           </h2>
