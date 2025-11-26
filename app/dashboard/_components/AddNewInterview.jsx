@@ -134,88 +134,107 @@ function AddNewInterview() {
   return (
     <div>
       <div
-        className="p-10 border rounded-lg bg-secondary hover:scale-105 hover:shadow-md cursor-pointer transition-all"
+        className="group p-10 border-2 border-dashed border-gray-300 rounded-2xl bg-gradient-to-br from-white to-gray-50 hover:from-blue-50 hover:to-teal-50 hover:border-teal-400 hover:scale-105 hover:shadow-xl cursor-pointer transition-all duration-300"
         onClick={() => setOpenDialog(true)}
       >
-        <h1 className="font-bold text-lg text-center">+ Add New</h1>
+        <div className="flex flex-col items-center space-y-3">
+          <div className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-teal-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+            <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+            </svg>
+          </div>
+          <h1 className="font-bold text-lg text-gray-900">Create New Interview</h1>
+          <p className="text-sm text-gray-600 text-center">Start a new AI-powered mock interview</p>
+        </div>
       </div>
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="font-bold text-2xl">
-              Tell us more about Job you are interviewing
+            <DialogTitle className="font-bold text-2xl sm:text-3xl bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
+              Tell Us About Your Interview
             </DialogTitle>
           </DialogHeader>
           <DialogDescription>
             <form onSubmit={onSubmit}>
               <div>
-                <h2>
-                  Add Details about job position/role, job description and years
-                  of experience
-                </h2>
-                <div className="mt-7 my-3">
-                  <label>Job Role/Position</label>
-                  <div className="flex items-center space-x-2">
-                    <Input
-                      placeholder="Ex. Full Stack Developer"
-                      value={jobPosition}
+                <p className="text-gray-600 mb-6">
+                  Provide details about the job position, required skills, and your experience level to get tailored interview questions.
+                </p>
+                <div className="space-y-5 mt-6">
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">Job Role/Position</label>
+                    <div className="flex items-center space-x-2">
+                      <Input
+                        placeholder="Ex. Full Stack Developer"
+                        value={jobPosition}
+                        required
+                        onChange={(e) => setJobPosition(e.target.value)}
+                        list="jobRoles"
+                        className="border-gray-300 focus:border-teal-500 focus:ring-teal-500"
+                      />
+                      <datalist id="jobRoles">
+                        {JOB_ROLE_SUGGESTIONS.map((role) => (
+                          <option key={role} value={role} />
+                        ))}
+                      </datalist>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="icon"
+                        onClick={() => autoSuggestTechStack(jobPosition)}
+                        disabled={!jobPosition}
+                        className="border-teal-300 hover:bg-teal-50"
+                        title="Auto-suggest tech stack"
+                      >
+                        <Sparkles className="h-4 w-4 text-teal-600" />
+                      </Button>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">Job Description/Tech Stack</label>
+                    <Textarea
+                      placeholder="Ex. React, Angular, NodeJs, MySql etc"
+                      value={jobDescription}
                       required
-                      onChange={(e) => setJobPosition(e.target.value)}
-                      list="jobRoles"
+                      onChange={(e) => setJobDescription(e.target.value)}
+                      className="border-gray-300 focus:border-teal-500 focus:ring-teal-500 min-h-[100px]"
                     />
-                    <datalist id="jobRoles">
-                      {JOB_ROLE_SUGGESTIONS.map((role) => (
-                        <option key={role} value={role} />
-                      ))}
-                    </datalist>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => autoSuggestTechStack(jobPosition)}
-                      disabled={!jobPosition}
-                    >
-                      <Sparkles className="h-4 w-4" />
-                    </Button>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">Years of Experience</label>
+                    <Input
+                      placeholder="Ex. 5"
+                      type="number"
+                      min="0"
+                      max="70"
+                      value={jobExperience}
+                      required
+                      onChange={(e) => setJobExperience(e.target.value)}
+                      className="border-gray-300 focus:border-teal-500 focus:ring-teal-500"
+                    />
                   </div>
                 </div>
-                <div className="my-3">
-                  <label>Job Description/Tech Stack</label>
-                  <Textarea
-                    placeholder="Ex. React, Angular, NodeJs, MySql etc"
-                    value={jobDescription}
-                    required
-                    onChange={(e) => setJobDescription(e.target.value)}
-                  />
-                </div>
-                <div className="my-3">
-                  <label>Years of Experience</label>
-                  <Input
-                    placeholder="Ex. 5"
-                    type="number"
-                    min="0"
-                    max="70"
-                    value={jobExperience}
-                    required
-                    onChange={(e) => setJobExperience(e.target.value)}
-                  />
-                </div>
               </div>
-              <div className="flex gap-5 justify-end">
+              <div className="flex gap-4 justify-end mt-8">
                 <Button
                   type="button"
-                  variant="ghost"
+                  variant="outline"
                   onClick={() => setOpenDialog(false)}
+                  className="border-gray-300 hover:bg-gray-50"
                 >
                   Cancel
                 </Button>
-                <Button type="submit" disabled={loading}>
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white px-6"
+                >
                   {loading ? (
                     <>
-                      <LoaderCircle className="animate-spin mr-2" /> Generating
+                      <LoaderCircle className="animate-spin mr-2" /> Generating Questions...
                     </>
                   ) : (
-                    "Start Interview"
+                    "Generate Interview"
                   )}
                 </Button>
               </div>

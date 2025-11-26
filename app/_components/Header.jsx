@@ -24,37 +24,41 @@ function Header() {
 
   return (
     <>
-      <div className="flex p-4 items-center justify-between bg-secondary shadow-sm relative z-50">
+      <div className="sticky top-0 z-50 flex p-5 items-center justify-between bg-white/80 backdrop-blur-xl shadow-sm border-b border-gray-200/50">
         <Image
           src="/custom-logo.svg"
-          width={120}
-          height={80}
+          width={130}
+          height={85}
           alt="logo"
-          className="cursor-pointer"
+          className="cursor-pointer transition-transform hover:scale-105"
           onClick={() => router.push("/")}
         />
 
-        <ul className="hidden md:flex gap-6">
+        <ul className="hidden md:flex gap-8 items-center">
           {navItems.map((item) => (
             <li
               key={item.path}
               onClick={() => router.push(item.path)}
-              className={`hover:text-primary hover:font-bold transition-all cursor-pointer ${
-                path === item.path && "text-primary font-bold"
+              className={`relative font-medium transition-all cursor-pointer group ${
+                path === item.path
+                  ? "text-teal-600 font-semibold"
+                  : "text-gray-700 hover:text-teal-600"
               }`}
             >
               {item.name}
+              <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-teal-600 transition-all duration-300 ${
+                path === item.path ? "w-full" : "w-0 group-hover:w-full"
+              }`}></span>
             </li>
           ))}
         </ul>
 
-        {/* Mobile & Desktop Right Section */}
-        <div className="flex items-center gap-3">
-          <UserButton />
+        <div className="flex items-center gap-4">
+          <UserButton afterSignOutUrl="/" />
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 hover:bg-gray-100 rounded-lg transition"
+            className="md:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? (
@@ -68,17 +72,18 @@ function Header() {
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-b shadow-lg absolute top-[72px] left-0 right-0 z-40">
+        <div className="md:hidden bg-white border-b shadow-xl absolute top-[85px] left-0 right-0 z-40 animate-slide-down backdrop-blur-xl">
           <ul className="flex flex-col">
-            {navItems.map((item) => (
+            {navItems.map((item, index) => (
               <li
                 key={item.path}
                 onClick={() => handleNavClick(item.path)}
-                className={`px-6 py-4 hover:bg-gray-50 cursor-pointer border-b last:border-b-0 ${
+                className={`px-6 py-4 hover:bg-teal-50 cursor-pointer border-b last:border-b-0 transition-colors duration-200 ${
                   path === item.path
-                    ? "bg-indigo-50 text-primary font-bold"
+                    ? "bg-gradient-to-r from-blue-50 to-teal-50 text-teal-600 font-semibold border-l-4 border-l-teal-600"
                     : "text-gray-700"
                 }`}
+                style={{animation: `slide-up 0.3s ease-out ${index * 0.05}s both`}}
               >
                 {item.name}
               </li>
