@@ -1,8 +1,8 @@
-# 🚀 MockGen AI
+# 🚀 GenMock AI
 
 AI-powered mock interview platform to help students, freshers, and professionals practice real interviews with live feedback, voice input, and intelligent scoring.
 
-MockGen AI simulates real interview experiences using AI-generated questions, speech-to-text analysis, and instant feedback — all inside a clean and intuitive interface.
+GenMock AI simulates real interview experiences using AI-generated questions, speech-to-text analysis, and instant feedback — all inside a clean and intuitive interface.
 
 ---
 
@@ -47,7 +47,7 @@ MockGen AI simulates real interview experiences using AI-generated questions, sp
 ## 🛠 Tech Stack
 
 ### **Frontend**
-
+- bolt.new
 - Next.js 14 (App Router)
 - React
 - Tailwind CSS
@@ -80,6 +80,6 @@ MockGen AI simulates real interview experiences using AI-generated questions, sp
 ### 1️⃣ Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/mockgen-ai.git
+git clone https://github.com/yourusername/genmock-ai.git
 cd mockgen-ai
 ```
