@@ -28,7 +28,12 @@ export default function SignIn() {
     }
 
     toast.success("Signed in successfully!");
-    router.push("/dashboard");
+
+    // Use router.replace to avoid back button issues and wait for auth state to update
+    setTimeout(() => {
+      router.replace("/dashboard");
+      router.refresh();
+    }, 500);
   };
 
   return (

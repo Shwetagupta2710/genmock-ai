@@ -2,7 +2,11 @@ import { createServerClient } from '@supabase/ssr';
 import { NextResponse } from 'next/server';
 
 export async function middleware(req) {
-  let res = NextResponse.next();
+  let res = NextResponse.next({
+    request: {
+      headers: req.headers,
+    },
+  });
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -13,10 +17,38 @@ export async function middleware(req) {
           return req.cookies.get(name)?.value;
         },
         set(name, value, options) {
-          res.cookies.set({ name, value, ...options });
+          req.cookies.set({
+            name,
+            value,
+            ...options,
+          });
+          res = NextResponse.next({
+            request: {
+              headers: req.headers,
+            },
+          });
+          res.cookies.set({
+            name,
+            value,
+            ...options,
+          });
         },
         remove(name, options) {
-          res.cookies.set({ name, value: '', ...options });
+          req.cookies.set({
+            name,
+            value: '',
+            ...options,
+          });
+          res = NextResponse.next({
+            request: {
+              headers: req.headers,
+            },
+          });
+          res.cookies.set({
+            name,
+            value: '',
+            ...options,
+          });
         },
       },
     }
@@ -31,11 +63,13 @@ export async function middleware(req) {
   const isDashboard = req.nextUrl.pathname.startsWith('/dashboard');
 
   if (!session && isDashboard) {
-    return NextResponse.redirect(new URL('/sign-in', req.url));
+    const redirectUrl = new URL('/sign-in', req.url);
+    return NextResponse.redirect(redirectUrl);
   }
 
   if (session && isAuthPage) {
-    return NextResponse.redirect(new URL('/dashboard', req.url));
+    const redirectUrl = new URL('/dashboard', req.url);
+    return NextResponse.redirect(redirectUrl);
   }
 
   return res;

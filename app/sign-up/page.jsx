@@ -31,7 +31,7 @@ export default function SignUp() {
 
     setLoading(true);
 
-    const { error } = await signUp(email, password);
+    const { data, error } = await signUp(email, password);
 
     if (error) {
       toast.error(error.message);
@@ -39,8 +39,20 @@ export default function SignUp() {
       return;
     }
 
-    toast.success("Account created successfully! Please sign in.");
-    router.push("/sign-in");
+    // Check if email confirmation is required
+    if (data?.user && !data?.session) {
+      toast.success("Account created! Please check your email to verify your account.");
+      setLoading(false);
+      return;
+    }
+
+    toast.success("Account created successfully!");
+
+    // Wait for auth state to update then redirect
+    setTimeout(() => {
+      router.replace("/dashboard");
+      router.refresh();
+    }, 500);
   };
 
   return (
