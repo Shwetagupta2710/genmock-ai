@@ -81,5 +81,5 @@ GenMock AI simulates real interview experiences using AI-generated questions, sp
 
 ```bash
 git clone https://github.com/yourusername/genmock-ai.git
-cd genmock-ai
+cd mockgen-ai
 ```

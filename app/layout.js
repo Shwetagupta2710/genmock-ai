@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "GenMock-AI",
+  title: "MockGen-AI",
   description: "Your Personal AI Interview Coach",
 };
 

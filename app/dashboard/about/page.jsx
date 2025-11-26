@@ -19,7 +19,7 @@ export default function AboutUsPage() {
       content: (
         <div className="space-y-5 text-gray-700 leading-relaxed text-lg md:text-xl">
           <p>
-            GenMock AI is built to help learners practice interviews with
+            MockGen AI is built to help learners practice interviews with
             clarity, structure, and confidence.
           </p>
           <p>
@@ -35,7 +35,7 @@ export default function AboutUsPage() {
       content: (
         <div className="space-y-5 text-gray-700 leading-relaxed text-lg md:text-xl">
           <p>
-            GenMock AI began as a personal project created to solve a real-world
+            MockGen AI began as a personal project created to solve a real-world
             student problem — interviews feel stressful and confusing.
           </p>
           <p>
@@ -90,7 +90,7 @@ export default function AboutUsPage() {
         {/* HERO */}
         <div className="text-center mb-12 sm:mb-20 md:mb-28">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-gray-900 leading-tight">
-            About GenMock AI
+            About MockGen AI
           </h1>
 
           <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto mt-4 sm:mt-6">
