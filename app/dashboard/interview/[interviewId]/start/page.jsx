@@ -63,9 +63,9 @@ function StartInterview() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen bg-gradient-to-br from-gray-50 via-white to-indigo-50/30 dark:from-gray-900 dark:via-gray-900 dark:to-indigo-950/30">
+      <div className="flex justify-center items-center h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-gray-900 dark:via-gray-900 dark:to-blue-950/30">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-indigo-600 dark:border-indigo-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-16 h-16 border-4 border-blue-600 dark:border-blue-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-lg text-gray-600 dark:text-gray-300">
             Loading interview details...
           </p>
@@ -75,7 +75,7 @@ function StartInterview() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-indigo-50/30 dark:from-gray-900 dark:via-gray-900 dark:to-indigo-950/30 py-8 px-4 sm:px-6 transition-colors">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-gray-900 dark:via-gray-900 dark:to-blue-950/30 py-8 px-4 sm:px-6 transition-colors">
       <div className="max-w-7xl mx-auto pb-24">
         {/* Progress Bar */}
         <div className="mb-8 bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-700">
@@ -83,13 +83,13 @@ function StartInterview() {
             <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
               Progress
             </span>
-            <span className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">
+            <span className="text-sm font-semibold text-blue-600 dark:text-blue-400">
               {activeQuestionIndex + 1} / {mockInterviewQuestion.length}
             </span>
           </div>
           <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
             <div
-              className="bg-gradient-to-r from-indigo-600 to-purple-600 h-2 rounded-full transition-all duration-300"
+              className="bg-gradient-to-r from-blue-600 to-cyan-600 h-2 rounded-full transition-all duration-300"
               style={{
                 width: `${((activeQuestionIndex + 1) / mockInterviewQuestion.length) * 100}%`,
               }}
@@ -140,7 +140,7 @@ function StartInterview() {
             {activeQuestionIndex !== mockInterviewQuestion?.length - 1 && (
               <Button
                 onClick={() => setActiveQuestionIndex(activeQuestionIndex + 1)}
-                className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700"
+                className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700"
               >
                 Next
                 <ChevronRight className="w-4 h-4 ml-1" />

@@ -221,7 +221,7 @@ function RecordAnswerSection({
           className={`w-full flex items-center justify-center gap-2 py-6 text-base font-semibold ${
             isRecording
               ? "bg-red-600 hover:bg-red-700"
-              : "bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700"
+              : "bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700"
           }`}
         >
           <Mic className={isRecording ? "animate-pulse" : ""} />

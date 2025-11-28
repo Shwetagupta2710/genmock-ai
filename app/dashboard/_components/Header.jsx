@@ -3,15 +3,17 @@ import { useAuth } from "@/contexts/AuthContext";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { Menu, X, LogOut, User } from "lucide-react";
+import { Menu, X, LogOut, User, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import PricingModal from "./PricingModal";
 
 function Header() {
   const path = usePathname();
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [pricingModalOpen, setPricingModalOpen] = useState(false);
   const { user, signOut } = useAuth();
 
   const handleSignOut = async () => {
@@ -61,6 +63,15 @@ function Header() {
 
         {/* Mobile & Desktop Right Section */}
         <div className="flex items-center gap-3">
+          {/* Upgrade Button */}
+          <Button
+            onClick={() => setPricingModalOpen(true)}
+            size="sm"
+            className="hidden sm:flex bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold"
+          >
+            <Zap className="h-4 w-4 mr-1" />
+            Upgrade
+          </Button>
           <div className="relative">
             <Button
               variant="ghost"
@@ -114,7 +125,7 @@ function Header() {
                 onClick={() => handleNavClick(item.path)}
                 className={`px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer border-b dark:border-gray-800 last:border-b-0 transition-colors ${
                   path === item.path
-                    ? "bg-indigo-50 dark:bg-indigo-950/50 text-primary font-medium"
+                    ? "bg-blue-50 dark:bg-blue-950/50 text-primary font-medium"
                     : "text-gray-700 dark:text-gray-300 font-normal"
                 }`}
               >
@@ -124,6 +135,13 @@ function Header() {
           </ul>
         </div>
       )}
+
+      {/* Pricing Modal */}
+      <PricingModal
+        isOpen={pricingModalOpen}
+        onClose={() => setPricingModalOpen(false)}
+        userEmail={user?.email}
+      />
     </>
   );
 }
