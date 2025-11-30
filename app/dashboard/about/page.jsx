@@ -15,11 +15,11 @@ export default function AboutUsPage() {
 
   const tabContent = {
     mission: {
-      icon: <Target className="mr-2 text-indigo-600" />,
+      icon: <Target className="mr-2 text-indigo-600 dark:text-indigo-400" />,
       content: (
-        <div className="space-y-5 text-gray-700 leading-relaxed text-lg md:text-xl">
+        <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed text-base md:text-lg">
           <p>
-            MockGen AI is built to help learners practice interviews with
+            GenMock AI is built to help learners practice interviews with
             clarity, structure, and confidence.
           </p>
           <p>
@@ -31,11 +31,11 @@ export default function AboutUsPage() {
     },
 
     story: {
-      icon: <BookOpen className="mr-2 text-indigo-600" />,
+      icon: <BookOpen className="mr-2 text-indigo-600 dark:text-indigo-400" />,
       content: (
-        <div className="space-y-5 text-gray-700 leading-relaxed text-lg md:text-xl">
+        <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed text-base md:text-lg">
           <p>
-            MockGen AI began as a personal project created to solve a real-world
+            GenMock AI began as a personal project created to solve a real-world
             student problem — interviews feel stressful and confusing.
           </p>
           <p>
@@ -47,9 +47,9 @@ export default function AboutUsPage() {
     },
 
     approach: {
-      icon: <Rocket className="mr-2 text-indigo-600" />,
+      icon: <Rocket className="mr-2 text-indigo-600 dark:text-indigo-400" />,
       content: (
-        <div className="space-y-5 text-gray-700 leading-relaxed text-lg md:text-xl">
+        <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed text-base md:text-lg">
           <p>
             The platform uses smart question generation, voice analysis, and
             communication scoring to simulate real interview environments.
@@ -65,19 +65,19 @@ export default function AboutUsPage() {
 
   const coreValues = [
     {
-      icon: <Award className="w-16 h-16 text-indigo-600" />,
+      icon: <Award className="w-12 h-12 text-indigo-600 dark:text-indigo-400" />,
       title: "Continuous Learning",
       description:
         "We commit to building tools that adapt to evolving industry needs.",
     },
     {
-      icon: <Users className="w-16 h-16 text-indigo-600" />,
+      icon: <Users className="w-12 h-12 text-indigo-600 dark:text-indigo-400" />,
       title: "Empowerment",
       description:
         "We help individuals gain clarity and confidence in communication.",
     },
     {
-      icon: <Briefcase className="w-16 h-16 text-indigo-600" />,
+      icon: <Briefcase className="w-12 h-12 text-indigo-600 dark:text-indigo-400" />,
       title: "Excellence",
       description:
         "We focus on clean, effective, and meaningful features — never clutter.",
@@ -85,63 +85,62 @@ export default function AboutUsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white px-4 sm:px-6 py-12 sm:py-16 md:py-24">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-indigo-50/30 dark:from-gray-900 dark:via-gray-900 dark:to-indigo-950/30 px-4 sm:px-6 py-12 sm:py-16 transition-colors">
+      <div className="max-w-6xl mx-auto">
         {/* HERO */}
-        <div className="text-center mb-12 sm:mb-20 md:mb-28">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-gray-900 leading-tight">
-            About MockGen AI
+        <div className="text-center mb-12 sm:mb-16">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-4">
+            About GenMock AI
           </h1>
 
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto mt-4 sm:mt-6">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             AI-powered mock interviews crafted for students and professionals to
             practice, improve, and build confidence.
           </p>
         </div>
 
         {/* TABS SECTION */}
-        <div className="bg-white border rounded-xl shadow-lg overflow-hidden mb-12 sm:mb-16 md:mb-[200px]">
-          <div className="flex flex-col sm:flex-row border-b">
+        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-lg overflow-hidden mb-16 transition-colors">
+          <div className="flex flex-col sm:flex-row border-b border-gray-200 dark:border-gray-700">
             {Object.keys(tabContent).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`w-full sm:flex-1 py-4 sm:py-5 px-4 flex items-center justify-center text-sm sm:text-base md:text-lg transition-all ${
+                className={`w-full sm:flex-1 py-4 px-4 flex items-center justify-center text-sm sm:text-base transition-all ${
                   activeTab === tab
-                    ? "text-indigo-600 font-semibold border-b-2 border-indigo-600 bg-gray-50"
-                    : "text-gray-600 hover:bg-gray-100"
+                    ? "text-indigo-600 dark:text-indigo-400 font-semibold border-b-2 border-indigo-600 dark:border-indigo-400 bg-indigo-50 dark:bg-indigo-950/30"
+                    : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700/50"
                 }`}
               >
                 {tabContent[tab].icon}
-                <span className="ml-2 sm:ml-0 sm:hidden md:inline capitalize">{tab}</span>
+                <span className="capitalize">{tab}</span>
               </button>
             ))}
           </div>
 
-          <div className="p-5 sm:p-7 md:p-9">{tabContent[activeTab].content}</div>
+          <div className="p-6 sm:p-8">{tabContent[activeTab].content}</div>
         </div>
 
-        {/* SPACER so Core Values appear ONLY AFTER SCROLL */}
-        <div className="h-1"></div>
-
         {/* CORE VALUES */}
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center text-gray-900 mb-8 sm:mb-12 md:mb-16">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center text-gray-900 dark:text-white mb-10">
           Our Core Values
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {coreValues.map((value, index) => (
             <div
               key={index}
-              className="p-6 sm:p-8 md:p-10 bg-white border rounded-xl shadow-md hover:shadow-xl transition-shadow text-center"
+              className="group p-6 sm:p-8 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-indigo-300 dark:hover:border-indigo-600"
             >
-              <div className="flex justify-center mb-4 sm:mb-6">{value.icon}</div>
+              <div className="flex justify-center mb-4 p-4 rounded-xl bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-indigo-900/50 dark:to-purple-900/50 w-fit mx-auto group-hover:scale-110 transition-transform">
+                {value.icon}
+              </div>
 
-              <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4">
+              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-3 text-center">
                 {value.title}
               </h3>
 
-              <p className="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed">
+              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed text-center">
                 {value.description}
               </p>
             </div>

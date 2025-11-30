@@ -1,8 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { db } from "@/utils/db";
-import { mockInterview } from "@/utils/schema";
-import { eq } from "drizzle-orm";
+import { supabase } from "@/utils/db";
 import { Lightbulb, WebcamIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import Webcam from "react-webcam";
@@ -22,13 +20,19 @@ function Interview() {
 
   const GetInterviewDetails = async () => {
     try {
-      const result = await db
-        .select()
-        .from(mockInterview)
-        .where(eq(mockInterview.mockId, interviewId));
+      const { data, error } = await supabase
+        .from("mockInterview")
+        .select("*")
+        .eq("mockId", interviewId)
+        .maybeSingle();
 
-      if (result && result.length > 0) {
-        setInterviewData(result[0]);
+      if (error) {
+        console.error("Error fetching interview:", error);
+        return;
+      }
+
+      if (data) {
+        setInterviewData(data);
       } else {
         console.warn("No interview found for id:", interviewId);
       }

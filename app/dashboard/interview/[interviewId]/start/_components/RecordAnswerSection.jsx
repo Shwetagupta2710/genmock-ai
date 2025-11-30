@@ -7,10 +7,9 @@ import useSpeechToText from "react-hook-speech-to-text";
 import { Mic } from "lucide-react";
 import { toast } from "sonner";
 import { chatSession, retryWithBackoff } from "@/utils/GeminiAIModal";
-import { db } from "@/utils/db";
-import { UserAnswer } from "@/utils/schema";
+import { supabase } from "@/utils/db";
 import moment from "moment";
-import { useUser } from "@clerk/nextjs";
+import { useAuth } from "@/contexts/AuthContext";
 
 function RecordAnswerSection({
   mockInterviewQuestion,
@@ -22,7 +21,7 @@ function RecordAnswerSection({
   const [isProcessing, setIsProcessing] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { user } = useUser();
+  const { user } = useAuth();
 
   // Ensure component only renders on client side
   useEffect(() => {
@@ -120,23 +119,30 @@ function RecordAnswerSection({
       const JsonFeedbackResp = JSON.parse(mockJsonResp);
 
       // Save to database
-      const resp = await db.insert(UserAnswer).values({
-        mockIdRef: interviewData?.mockId,
-        question: mockInterviewQuestion[activeQuestionIndex]?.question,
-        correctAns: mockInterviewQuestion[activeQuestionIndex]?.answer,
-        userAns: userAnswer,
-        feedback: JsonFeedbackResp?.feedback,
-        rating: JsonFeedbackResp?.rating,
-        userEmail: user?.primaryEmailAddress?.emailAddress,
-        createdAt: moment().format("DD-MM-yyyy"),
-      });
+      const { data, error } = await supabase
+        .from("userAnswer")
+        .insert({
+          mockId: interviewData?.mockId,
+          question: mockInterviewQuestion[activeQuestionIndex]?.question,
+          correctAns: mockInterviewQuestion[activeQuestionIndex]?.answer,
+          userAns: userAnswer,
+          feedback: JsonFeedbackResp?.feedback,
+          rating: JsonFeedbackResp?.rating,
+          userEmail: user?.email,
+          createdAt: moment().format("DD-MM-yyyy"),
+        });
 
-      if (resp) {
+      if (error) {
+        console.error("Error saving answer:", error);
         toast.dismiss();
-        toast.success("User Answer recorded successfully!");
-        setUserAnswer("");
-        setResults([]);
+        toast.error("Failed to save your answer. Please try again.");
+        return;
       }
+
+      toast.dismiss();
+      toast.success("User Answer recorded successfully!");
+      setUserAnswer("");
+      setResults([]);
     } catch (error) {
       console.error("Error in UpdateUserAnswer:", error);
       toast.dismiss();
@@ -175,28 +181,50 @@ function RecordAnswerSection({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center w-full">
       {/* Webcam Preview */}
-      <div className="relative bg-black rounded-lg overflow-hidden flex justify-center items-center w-[320px] h-[240px] sm:w-[400px] sm:h-[300px] md:w-[480px] md:h-[360px]">
+      <div className="relative bg-black dark:bg-gray-900 rounded-2xl overflow-hidden flex justify-center items-center w-full max-w-lg aspect-video border-4 border-gray-800 dark:border-gray-700 shadow-xl">
         <Image
           src="/webcam-removebg-preview.png"
           width={200}
           height={200}
           alt="webcam overlay"
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-30 pointer-events-none"
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-20 pointer-events-none z-20"
         />
         <Webcam mirrored className="w-full h-full object-cover z-10" />
+        {isRecording && (
+          <div className="absolute top-4 right-4 flex items-center gap-2 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium z-30">
+            <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+            Recording
+          </div>
+        )}
       </div>
 
+      {/* Answer Preview */}
+      {userAnswer && (
+        <div className="mt-4 w-full max-w-lg p-4 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl">
+          <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1 uppercase tracking-wide">
+            Your Answer
+          </p>
+          <p className="text-sm text-gray-800 dark:text-gray-200">
+            {userAnswer}
+          </p>
+        </div>
+      )}
+
       {/* Controls */}
-      <div className="flex flex-col items-center gap-3 mt-6">
+      <div className="flex flex-col items-center gap-3 mt-6 w-full max-w-lg">
         <Button
           variant={isRecording ? "destructive" : "default"}
           onClick={handleRecordToggle}
           disabled={isProcessing}
-          className="flex items-center gap-2"
+          className={`w-full flex items-center justify-center gap-2 py-6 text-base font-semibold ${
+            isRecording
+              ? "bg-red-600 hover:bg-red-700"
+              : "bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700"
+          }`}
         >
-          <Mic className={isRecording ? "text-white animate-pulse" : ""} />
+          <Mic className={isRecording ? "animate-pulse" : ""} />
           {isProcessing
             ? "Processing..."
             : isRecording
@@ -205,7 +233,7 @@ function RecordAnswerSection({
         </Button>
 
         {error && (
-          <p className="text-red-600 text-sm mt-1">
+          <p className="text-red-600 dark:text-red-400 text-sm text-center">
             🎙️ Speech recognition not supported in this browser.
           </p>
         )}

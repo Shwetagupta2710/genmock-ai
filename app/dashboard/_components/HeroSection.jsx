@@ -20,7 +20,7 @@ export default function HeroSection() {
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
             <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
               How to use this GenMock AI .{" "}
-              <a href="/how-it-works" className="font-semibold text-indigo-600">
+              <a href="/how-it-works" className="font-medium text-indigo-600">
                 <span aria-hidden="true" className="absolute inset-0" />
                 Read more <span aria-hidden="true">&rarr;</span>
               </a>
@@ -28,7 +28,7 @@ export default function HeroSection() {
           </div>
 
           <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+            <h1 className="text-4xl font-semibold tracking-tight text-gray-900 sm:text-6xl">
               Your Personal AI Interview Coach
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600 sm:text-xl">
@@ -38,13 +38,13 @@ export default function HeroSection() {
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
                 href="/dashboard"
-                className="rounded-md bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="rounded-md bg-indigo-600 px-4 py-3 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Get started
               </a>
               <a
                 href="/dashboard"
-                className="text-sm font-semibold leading-6 text-gray-900 hover:text-indigo-600"
+                className="text-sm font-medium leading-6 text-gray-900 hover:text-indigo-600"
               >
                 Learn more <span aria-hidden="true">→</span>
               </a>
