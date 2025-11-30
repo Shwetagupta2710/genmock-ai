@@ -1,44 +1,53 @@
 "use client";
 import React from "react";
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { CopyrightIcon, Github, Linkedin, Twitter } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-8 mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-4 md:mb-0">
-            <p className="text-sm text-gray-400">
-              © 2024 GenMock AI. All rights reserved.
-            </p>
+    <footer className="bg-gray-900 text-white py-6">
+      <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+        {/* Left Section */}
+        <div className="text-center md:text-left">
+          <div className="flex items-center justify-center md:justify-start text-sm">
+            <CopyrightIcon className="mr-2 h-5 w-5 text-gray-400" />
+            <span>2025 GenMock AI. All Rights Reserved.</span>
           </div>
 
-          <div className="flex space-x-6">
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              <Github className="h-5 w-5" />
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              <Linkedin className="h-5 w-5" />
-            </a>
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              <Twitter className="h-5 w-5" />
-            </a>
-          </div>
+          {/* Made With Love Line */}
+          <p className="text-xs text-gray-400 mt-1">Made with ❤️ by Shweta</p>
+        </div>
+
+        {/* Social Icons */}
+        <div className="flex space-x-4">
+          <a
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            className="hover:text-indigo-500 transition-colors"
+          >
+            <Github className="h-6 w-6" />
+          </a>
+
+          <a
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            className="hover:text-indigo-500 transition-colors"
+          >
+            <Linkedin className="h-6 w-6" />
+          </a>
+
+          <a
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Twitter"
+            className="hover:text-indigo-500 transition-colors"
+          >
+            <Twitter className="h-6 w-6" />
+          </a>
         </div>
       </div>
     </footer>

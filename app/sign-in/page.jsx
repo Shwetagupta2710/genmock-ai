@@ -39,13 +39,15 @@ export default function SignIn() {
         console.log("✅ Session created:", data.session.user.email);
 
         // Verify session was saved
-        const { data: { session: savedSession } } = await supabase.auth.getSession();
+        const {
+          data: { session: savedSession },
+        } = await supabase.auth.getSession();
         console.log("💾 Saved session check:", savedSession ? "✓" : "✗");
 
         toast.success("Signed in successfully!");
 
         // Wait a bit for cookies to be set
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise((resolve) => setTimeout(resolve, 500));
 
         // Force hard navigation
         window.location.href = "/dashboard";
@@ -131,15 +133,6 @@ export default function SignIn() {
                 Sign up
               </Link>
             </p>
-          </div>
-
-          <div className="mt-6 text-center">
-            <Link
-              href="/test-auth"
-              className="text-xs text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
-            >
-              Debug Auth
-            </Link>
           </div>
         </div>
       </div>
